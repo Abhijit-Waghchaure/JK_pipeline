@@ -24,13 +24,17 @@ pipeline {
 
         stage('Docker Build') {
             steps {
-                sh 'docker compose -f docker-compose.yml -p saleserp build'
+                dir('sales') {
+                    sh 'docker compose -p saleserp build'
+                }
             }
         }
 
         stage('Docker Deploy') {
             steps {
-                sh 'docker compose -f docker-compose.yml -p saleserp up -d'
+                dir('sales') {
+                    sh 'docker compose -p saleserp up -d'
+                }
             }
         }
     }
@@ -44,6 +48,3 @@ pipeline {
         }
     }
 }
-
-
-
