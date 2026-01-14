@@ -3,6 +3,7 @@ services:
     image: saleserp-app:latest
     build:
       context: ./sales
+      dockerfile: Dockerfile
     container_name: saleserp-app
     ports:
       - "8080:8080"
@@ -28,4 +29,5 @@ services:
 
 volumes:
   mysql_data:
+
 
