@@ -24,24 +24,16 @@ pipeline {
 
         stage('Docker Build') {
             steps {
-                sh 'docker compose build'
+                sh 'docker compose -p saleserp build'
             }
         }
 
         stage('Docker Deploy') {
             steps {
-                sh 'docker compose up -d'
+                sh 'docker compose -p saleserp up -d'
             }
         }
     }
-
-    post {
-        success {
-            echo "SalesERP deployed successfully 🚀"
-        }
-        failure {
-            echo "Build failed ❌"
-        }
-    }
 }
+
 
