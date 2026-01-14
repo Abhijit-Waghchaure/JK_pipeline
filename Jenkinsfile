@@ -23,18 +23,27 @@ pipeline {
         }
 
         stage('Docker Build') {
-    steps {
-        sh 'docker compose -f docker-compose.yml -p saleserp build'
+            steps {
+                sh 'docker compose -f docker-compose.yml -p saleserp build'
+            }
+        }
+
+        stage('Docker Deploy') {
+            steps {
+                sh 'docker compose -f docker-compose.yml -p saleserp up -d'
+            }
+        }
+    }
+
+    post {
+        success {
+            echo "Pipeline completed successfully 🚀"
+        }
+        failure {
+            echo "Pipeline failed ❌"
+        }
     }
 }
 
-stage('Docker Deploy') {
-    steps {
-        sh 'docker compose -f docker-compose.yml -p saleserp up -d'
-    }
-}
-
-    }
-}
 
 
