@@ -6,10 +6,6 @@ pipeline {
         jdk 'JDK_21'
     }
 
-    environment {
-        DOCKER_IMAGE = "saleserp-app"
-    }
-
     stages {
 
         stage('Checkout') {
@@ -20,7 +16,7 @@ pipeline {
 
         stage('Build Maven') {
             steps {
-                dir('saleserp/sales') {
+                dir('saleserp') {
                     sh 'mvn clean package -DskipTests'
                 }
             }
@@ -28,17 +24,13 @@ pipeline {
 
         stage('Docker Build') {
             steps {
-                dir('saleserp') {
-                    sh 'docker compose build'
-                }
+                sh 'docker compose build'
             }
         }
 
         stage('Docker Deploy') {
             steps {
-                dir('saleserp') {
-                    sh 'docker compose up -d'
-                }
+                sh 'docker compose up -d'
             }
         }
     }
@@ -52,3 +44,4 @@ pipeline {
         }
     }
 }
+
